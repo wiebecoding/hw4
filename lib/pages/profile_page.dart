@@ -14,13 +14,17 @@ class ProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            FilledButton(
-              child: Text("Logout"),
-              onPressed: () {
-                BlocProvider.of<AuthenticationBloc>(
-                  context,
-                ).add(AuthenticationLogoutEvent());
-              },
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(30.0),
+              child: FilledButton(
+                child: Text("Logout"),
+                onPressed: () {
+                  BlocProvider.of<AuthenticationBloc>(
+                    context,
+                  ).add(AuthenticationLogoutEvent());
+                },
+              ),
             ),
           ],
         ),

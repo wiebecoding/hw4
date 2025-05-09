@@ -8,19 +8,23 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
+      appBar: AppBar(title: Text("Login"), centerTitle: true),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            FilledButton(
-              child: Text("Login"),
-              onPressed: () {
-                BlocProvider.of<AuthenticationBloc>(
-                  context,
-                ).add(AuthenticationLoginEvent());
-              },
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(30.0),
+              child: FilledButton(
+                child: Text("Login"),
+                onPressed: () {
+                  BlocProvider.of<AuthenticationBloc>(
+                    context,
+                  ).add(AuthenticationLoginEvent());
+                },
+              ),
             ),
           ],
         ),

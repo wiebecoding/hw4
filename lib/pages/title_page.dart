@@ -20,9 +20,9 @@ class TitlePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Sorted by Title',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 16.0),
             Expanded(

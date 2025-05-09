@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hw4/auth_bloc/auth_bloc.dart';
 import 'package:hw4/pages/author_detail_page.dart';
 import 'package:hw4/pages/author_page.dart';
-import 'package:hw4/pages/home_page.dart';
 import 'package:hw4/pages/login_page.dart';
 import 'package:hw4/pages/profile_page.dart';
 import 'package:hw4/pages/title_detail_page.dart';
@@ -29,11 +28,37 @@ final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: "Shell",
 );
 
+/*
+
+Created GoRouter with the following paths:
+  / (name: home)
+  /byAuthor (name: byAuthor)
+  /byAuthor/detail (name: byAuthorDetail)
+  /byTitle (name: byTitle)
+  /byTitleDetail (name: byTitleDetail)
+  /profile (name: profile)
+  /login (name: login)
+
+*/
+
 GoRouter routerHW(AuthenticationBloc authenticationBloc) {
   return GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: "/login",
+    /*
+    
+    Created a Listenable from the stream of the AuthenticationBloc
+    Added listenable to the refreshListentable of the GoRouter
+
+    */
     refreshListenable: StreamToListenable([authenticationBloc.stream]),
+
+    /* 
+
+    If logged in and current path == /login, go to /byAuthor
+    If logged out and current path != /login, go to /login
+
+    */
     redirect: (context, state) async {
       if (authenticationBloc.state is AuthenticationLoggedIn &&
           ((state.fullPath?.startsWith("/login") ?? false))) {
@@ -49,16 +74,16 @@ GoRouter routerHW(AuthenticationBloc authenticationBloc) {
     routes: [
       GoRoute(
         path: '/login',
-        name: RouteName.home,
+        name: RouteName.login,
         builder: (context, state) {
           return const LoginPage();
         },
       ),
       GoRoute(
         path: '/',
-        name: RouteName.login,
+        name: RouteName.home,
         builder: (context, state) {
-          return const HomePage();
+          return const LoginPage();
         },
         routes: [
           ShellRoute(
